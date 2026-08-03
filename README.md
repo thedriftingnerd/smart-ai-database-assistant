@@ -1,5 +1,11 @@
 # Smart AI Database Assistant
 
+Original Development Date: June 10, 2026
+
+Readme is outdated and toolset has since been updated to use Python, Node.js, React, and Gemini 3.6 Flash.
+
+------------------------------------------------------------------------------------------------------------------------
+
 This project is a local Streamlit app that turns plain-English questions into SQLite queries against a local SQLite database. It uses a Gemini free-tier model through the Google GenAI SDK and stores everything locally.
 
 ## Files
