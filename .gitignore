@@ -1,0 +1,31 @@
+# Python virtual environments
+.venv/
+.venv-*/
+venv/
+env/
+ENV/
+virtualenv/
+
+# Python cache and tooling artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local app secrets and generated data
+gemini_key.txt
+config.json
+enterprise.db
+
+# Streamlit and local editor files
+.streamlit/
+.DS_Store

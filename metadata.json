@@ -1,0 +1,8 @@
+{
+  "name": "Databassistant",
+  "description": "A Smart AI-Powered Assistant to Query a Database with Ease!",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
