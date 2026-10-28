@@ -57,7 +57,8 @@ class PythonBackendHandler(BaseHTTPRequestHandler):
 
             if path == '/api/schema':
                 summary = db_engine.get_schema_summary()
-                self._send_json({"summary": summary})
+                detailed = db_engine.get_detailed_schema()
+                self._send_json({"summary": summary, "tables": detailed})
                 return
 
             if path == '/api/tables':

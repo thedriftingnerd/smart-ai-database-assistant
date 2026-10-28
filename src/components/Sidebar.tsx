@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className="w-full flex items-center gap-2.5 px-3 py-2.5 bg-black/80 hover:bg-[#8CFFB7]/10 border border-[#8CFFB7]/30 rounded-xl text-xs font-medium text-slate-200 hover:text-white transition-all shadow-sm"
           >
             <Layers className="w-4 h-4 text-[#8CFFB7] shrink-0" />
-            <span>Inspect Schema & Data</span>
+            <span>Schema & ER Diagrams</span>
           </button>
 
           <button

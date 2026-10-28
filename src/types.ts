@@ -28,3 +28,28 @@ export interface TableSummary {
   name: string;
   rowCount: number;
 }
+
+export interface ColumnDetail {
+  name: string;
+  type: string;
+  pk: boolean;
+  notnull: boolean;
+}
+
+export interface ForeignKeyDetail {
+  from: string;
+  toTable: string;
+  toColumn: string;
+}
+
+export interface TableDetail {
+  name: string;
+  rowCount: number;
+  columns: ColumnDetail[];
+  foreignKeys: ForeignKeyDetail[];
+}
+
+export interface SchemaResponse {
+  summary: string;
+  tables?: TableDetail[];
+}

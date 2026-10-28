@@ -263,6 +263,43 @@ def get_schema_summary():
     conn.close()
     return "\n\n".join(summaries)
 
+def get_detailed_schema():
+    tables = list_tables()
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    detailed_tables = []
+    counts = get_row_counts()
+    for tbl in tables:
+        cursor.execute(f'PRAGMA table_info("{tbl}");')
+        col_rows = cursor.fetchall()
+        cols = []
+        for c in col_rows:
+            cols.append({
+                "name": c['name'],
+                "type": c['type'] or 'TEXT',
+                "pk": bool(c['pk']),
+                "notnull": bool(c['notnull'])
+            })
+
+        cursor.execute(f'PRAGMA foreign_key_list("{tbl}");')
+        fk_rows = cursor.fetchall()
+        fks = []
+        for fk in fk_rows:
+            fks.append({
+                "from": fk['from'],
+                "toTable": fk['table'],
+                "toColumn": fk['to']
+            })
+
+        detailed_tables.append({
+            "name": tbl,
+            "rowCount": counts.get(tbl, 0),
+            "columns": cols,
+            "foreignKeys": fks
+        })
+    conn.close()
+    return detailed_tables
+
 def execute_sql_query(sql_text: str):
     init_db()
     normalized = normalize_sql(sql_text)

@@ -1,64 +1,62 @@
 # Smart AI Database Assistant
 
-Original Development Date: June 10, 2026
+A full-stack AI database assistant featuring a React + Vite frontend, Express proxy server, Python 3 SQLite database backend, and Gemini 3.6 Flash text-to-SQL engine.
 
-Readme is outdated and toolset has since been updated to use Python, Node.js, React, and Gemini 3.6 Flash.
+## System Architecture
 
-------------------------------------------------------------------------------------------------------------------------
+- **Frontend**: React 18, Tailwind CSS v4, Motion, Lucide icons.
+- **Backend Service**: Express (`server.ts`) which spawns and proxies API requests to the Python SQLite Engine.
+- **Python Database Engine**: Python (`python_backend/app.py`), using standard Python 3 standard library (`sqlite3`, `http.server`, `urllib`).
 
-This project is a local Streamlit app that turns plain-English questions into SQLite queries against a local SQLite database. It uses a Gemini free-tier model through the Google GenAI SDK and stores everything locally.
+---
 
-## Files
+## Prerequisites
 
-- `setup_db.py` creates `enterprise.db` with sample `employees`, `it_hardware`, and `support_tickets` tables.
-- `db_engine.py` inspects the schema and executes read-only SQL safely.
-- `llm_engine.py` loads the local Gemini API key, builds prompts, and extracts SQL from Gemini responses.
-- `app.py` provides the Streamlit UI, chat history, database switching, and manual SQL editing.
+- **Node.js**: v18.x or higher
+- **Python**: 3.8 or higher (uses standard library `sqlite3`, no external pip packages required)
 
-## Setup
+---
 
-1. Create and activate a virtual environment.
-2. Install dependencies:
+## Quick Start (Local Setup)
+
+1. **Clone or download the project folder**:
+   ```bash
+   git clone <repository-url>
+   cd smart-ai-database-assistant
+   ```
+
+2. **Install Node.js dependencies**:
+   ```bash
+   npm install
+   ```
+
+3. **Configure Environment Variables**:
+   Create a `.env` file in the project root or export `GEMINI_API_KEY` in your terminal:
+   ```bash
+   cp .env.example .env
+   # Open .env and set your Gemini API key:
+   # GEMINI_API_KEY="your_actual_gemini_api_key"
+   ```
+
+4. **Start the Application**:
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the App**:
+   Open your browser and navigate to `http://localhost:3000`.
+
+---
+
+## Production Build & Run
+
+To test the production build locally:
 
 ```bash
-pip install -r requirements.txt
+# Build frontend and compile Express server
+npm run build
+
+# Start production server
+npm start
 ```
 
-3. Paste your Gemini API key into `gemini_key.txt`.
-4. If you prefer JSON config, create `config.json` in the project root with this shape:
-
-```json
-{
-  "gemini_api_key": "YOUR_KEY_HERE",
-  "model": "gemini-2.5-flash"
-}
-```
-
-5. Create the local database:
-
-```bash
-python setup_db.py
-```
-
-6. Start the app:
-
-```bash
-streamlit run app.py
-```
-
-## Usage
-
-Ask questions like:
-
-- Show all open support tickets grouped by priority.
-- Which employees have assigned laptops that are overdue for warranty renewal?
-- Count hardware assets by status and type.
-- List security-related tickets from the last 30 days.
-
-The app displays the generated SQL and the resulting Pandas table. The dashboard also lets you switch the active SQLite file, upload a different database, create a sample database at a chosen path, enable an audit trail, and run manual SQL changes against the selected database.
-
-## Notes
-
-- The query runner is intentionally read-only and rejects destructive SQL.
-- The schema is re-inspected from the local SQLite database before each Gemini prompt so the model sees the current table structure.
-- If Gemini free-tier quota is unavailable, the app falls back to local SQL templates for common requests like the most recent support ticket or the most recent database change.
